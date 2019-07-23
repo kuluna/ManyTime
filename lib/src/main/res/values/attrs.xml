@@ -1,0 +1,14 @@
+<resources>
+    <declare-styleable name="TimeRangeView">
+        <attr name="editable" format="boolean" />
+        <attr name="textStartTime" format="string" />
+        <attr name="textEndTime" format="string" />
+        <attr name="textOverDayEndTime" format="string" />
+    </declare-styleable>
+    <declare-styleable name="NumberPadView">
+        <attr name="positiveKeyMode" format="enum">
+            <enum name="ok" value="0" />
+            <enum name="next" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

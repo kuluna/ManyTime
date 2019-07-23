@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_row="4"
+    android:layout_column="3"
+    android:background="?android:attr/colorBackground"
+    android:useDefaultMargins="false">
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_columnWeight="1"
+        android:tag="1"
+        android:text="1"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_columnWeight="1"
+        android:tag="2"
+        android:text="2"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:tag="3"
+        android:text="3"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_columnWeight="1"
+        android:tag="4"
+        android:text="4"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_columnWeight="1"
+        android:tag="5"
+        android:text="5"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="1"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:tag="6"
+        android:text="6"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_columnWeight="1"
+        android:tag="7"
+        android:text="7"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_columnWeight="1"
+        android:tag="8"
+        android:text="8"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="2"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:tag="9"
+        android:text="9"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <ImageButton
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_height="64dp"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:layout_columnWeight="1"
+        android:tag="BACK"
+        android:textColor="?android:attr/textColorPrimary"
+        app:srcCompat="@drawable/ic_backspace"
+        tools:ignore="ContentDescription" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:layout_columnWeight="1"
+        android:tag="0"
+        android:text="0"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/number_pad_button_ok"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_height="64dp"
+        android:layout_row="3"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:tag="OK"
+        android:text="@android:string/ok"
+        android:textSize="22sp" />
+
+    <ImageButton
+        android:id="@+id/number_pad_button_next"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_height="64dp"
+        android:layout_row="3"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:tag="OK"
+        android:tint="?android:attr/colorAccent"
+        app:srcCompat="@drawable/ic_arrow_forward"
+        tools:ignore="ContentDescription" />
+
+</GridLayout>
