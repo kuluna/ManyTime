@@ -67,6 +67,17 @@ class TimeRangeView @JvmOverloads constructor(
             }
         }
 
+    /** このViewの時刻表示を隠します */
+    var masking: Boolean = false
+        set(value) {
+            field = value
+
+            buttonStartHour.text = startHour.toDisplayTime()
+            buttonStartMin.text = startMin.toDisplayTime()
+            buttonEndHour.text = endHour.toDisplayTime()
+            buttonEndMin.text = endMin.toDisplayTime()
+        }
+
     var startHour: String = ""
         private set(value) {
             val (adjustTime, moveNext) = adjustTime(value, TimeField.HOUR)
@@ -186,6 +197,7 @@ class TimeRangeView @JvmOverloads constructor(
         if (attrs != null) {
             val args = context.theme.obtainStyledAttributes(attrs, R.styleable.TimeRangeView, defStyleAttr, 0)
             editable = args.getBoolean(R.styleable.TimeRangeView_editable, false)
+            masking = args.getBoolean(R.styleable.TimeRangeView_masking, false)
             // ラベルはあるならセットし、なければスルー
             args.getString(R.styleable.TimeRangeView_textStartTime)?.let { textStartTime = it }
             args.getString(R.styleable.TimeRangeView_textEndTime)?.let { textEndTime = it }
@@ -348,6 +360,7 @@ class TimeRangeView @JvmOverloads constructor(
 
     private fun String.toDisplayTime(): String {
         return when {
+            masking -> "--"
             isEmpty() -> "00"
             length == 1 -> "0$this"
             else -> this

@@ -1,6 +1,7 @@
 <resources>
     <declare-styleable name="TimeRangeView">
         <attr name="editable" format="boolean" />
+        <attr name="masking" format="boolean" />
         <attr name="textStartTime" format="string" />
         <attr name="textEndTime" format="string" />
         <attr name="textOverDayEndTime" format="string" />
