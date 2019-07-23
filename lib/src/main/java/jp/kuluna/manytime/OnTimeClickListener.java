@@ -1,6 +1,4 @@
-package jp.kuluna.timerange;
-
-import jp.kuluna.manytime.TimeRangeView;
+package jp.kuluna.manytime;
 
 public interface OnTimeClickListener {
     void onClick(TimeRangeView.CurrentFocus currentFocus);

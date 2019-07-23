@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
-import jp.kuluna.manytime.databinding.DialogTimeRangeBinding
-import jp.kuluna.timerange.OnTimeClickListener
 import java.util.*
 
 abstract class TimeRangeDialogFragment : DialogFragment() {
-    protected lateinit var binding: DialogTimeRangeBinding
-
+    protected lateinit var rootView: ConstraintLayout
+    protected lateinit var textViewTitle: TextView
+    protected lateinit var timeRangeView: TimeRangeView
+    protected lateinit var numberPadView: NumberPadView
+    protected lateinit var buttonCancel: Button
+    protected lateinit var buttonOk: Button
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return Dialog(context!!).apply {
@@ -21,8 +26,16 @@ abstract class TimeRangeDialogFragment : DialogFragment() {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
 
             // Viewをセット
-            binding = DialogTimeRangeBinding.inflate(layoutInflater, null, false)
-            setContentView(binding.root)
+            layoutInflater.inflate(R.layout.dialog_time_range, null, false).let {
+                setContentView(it)
+
+                rootView = it.findViewById(R.id.dialog_time_range_root)
+                textViewTitle = it.findViewById(R.id.time_range_dialog_text_title)
+                timeRangeView = it.findViewById(R.id.time_range_dialog_time_range_view)
+                numberPadView = it.findViewById(R.id.time_range_dialog_number_pad_view)
+                buttonCancel = it.findViewById(R.id.time_range_dialog_button_cancel)
+                buttonOk = it.findViewById(R.id.time_range_dialog_button_ok)
+            }
 
             // もともとあったダイアログの背景を消して画面目一杯にViewを広げる
             window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -35,52 +48,52 @@ abstract class TimeRangeDialogFragment : DialogFragment() {
 
         //// Setup Views ////
         // TimeRangeに表示するテキストをセット
-        binding.timeRangeDialogTimeRangeView.run {
+        timeRangeView.run {
             textStartTime = startTimeText
             textEndTime = endTimeText
             textOverDayEndTime = overDayEndTimeText
         }
 
         // NumberPadのの入力イベントを拾ってTimeRangeに渡し、結果を受け取る
-        binding.timeRangeDialogNumberPadView.onKeyClick = {
+        numberPadView.onKeyClick = {
             // OKモードならそのまま完了できる
-            if (binding.timeRangeDialogNumberPadView.positiveKeyMode == NumberPadView.PositiveKeyMode.OK
+            if (numberPadView.positiveKeyMode == NumberPadView.PositiveKeyMode.OK
                 && it == InputKey.OK
             ) {
-                val result = binding.timeRangeDialogTimeRangeView.getTimeRange()
+                val result = timeRangeView.getTimeRange()
                 if (onOkButtonClick(result)) {
                     dismiss()
                 }
             }
 
-            binding.timeRangeDialogTimeRangeView.input(it)
+            timeRangeView.input(it)
 
-            val currentTimeRange = binding.timeRangeDialogTimeRangeView.getTimeRange()
+            val currentTimeRange = timeRangeView.getTimeRange()
             // 入力された日付データを扱って良いか検証する
             validate(currentTimeRange)
 
-            setKeyMode(binding.timeRangeDialogTimeRangeView.focus)
+            setKeyMode(timeRangeView.focus)
         }
 
-        binding.timeRangeDialogTimeRangeView.onTimeClickListener = OnTimeClickListener {
+        timeRangeView.onTimeClickListener = OnTimeClickListener {
             setKeyMode(it)
         }
 
         //// Events /////
 
         // 黒い背景部分をクリックした時にダイアログを閉じる
-        binding.dialogTimeRangeRoot.setOnClickListener {
+        rootView.setOnClickListener {
             if (isCancelable) {
                 dismiss()
             }
         }
 
-        binding.timeRangeDialogButtonCancel.setOnClickListener {
+        buttonCancel.setOnClickListener {
             dismiss()
         }
 
-        binding.timeRangeDialogButtonOk.setOnClickListener {
-            val result = binding.timeRangeDialogTimeRangeView.getTimeRange()
+        buttonOk.setOnClickListener {
+            val result = timeRangeView.getTimeRange()
             if (onOkButtonClick(result)) {
                 dismiss()
             }
@@ -88,28 +101,28 @@ abstract class TimeRangeDialogFragment : DialogFragment() {
     }
 
     protected fun setTitle(@StringRes resId: Int) {
-        binding.timeRangeDialogTextTitle.run {
+        textViewTitle.run {
             setText(resId)
             visibility = if (text.isNotBlank()) View.VISIBLE else View.GONE
         }
     }
 
     protected fun setTitle(title: String) {
-        binding.timeRangeDialogTextTitle.run {
+        textViewTitle.run {
             text = title
             visibility = if (title.isNotBlank()) View.VISIBLE else View.GONE
         }
     }
 
     protected fun setTimeRange(range: ClosedRange<Date>) {
-        binding.timeRangeDialogTimeRangeView.setTimeRange(range)
+        timeRangeView.setTimeRange(range)
     }
 
     private fun setKeyMode(focus: TimeRangeView.CurrentFocus) {
         if (focus == TimeRangeView.CurrentFocus.END_MIN || focus == TimeRangeView.CurrentFocus.COMPLETE) {
-            binding.timeRangeDialogNumberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.OK
+            numberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.OK
         } else {
-            binding.timeRangeDialogNumberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.NEXT
+            numberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.NEXT
         }
     }
 

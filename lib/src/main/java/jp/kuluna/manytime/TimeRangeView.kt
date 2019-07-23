@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import jp.kuluna.timerange.OnTimeClickListener
 import org.apache.commons.lang3.time.DateUtils
 import java.util.*
 
