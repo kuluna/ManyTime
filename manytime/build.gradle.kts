@@ -48,6 +48,7 @@ buildscript {
     }
 }
 
+// ./gradlew clean build bintrayUpload
 configure<PublishExtension> {
     bintrayUser = System.getenv("BINTRAY_USER")
     bintrayKey = System.getenv("BINTRAY_KEY")
