@@ -1,16 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <jp.kuluna.manytime.TimeRangeView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:masking="true" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+        <jp.kuluna.manytime.TimeRangeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <jp.kuluna.manytime.TimeRangeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:editable="true" />
+
+        <jp.kuluna.manytime.TimeRangeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:masking="true" />
+
+        <jp.kuluna.manytime.TimeRangeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textColor="@color/colorAccent" />
+
+        <jp.kuluna.manytime.TimeRangeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textStartTime="すたーと" />
+
+        <jp.kuluna.manytime.TimeRangeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textEndTime="えんど" />
+
+        <jp.kuluna.manytime.TimeRangeView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textOverDayEndTime="えんど(つぎのひ)" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -11,6 +11,7 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import org.apache.commons.lang3.time.DateUtils
 import java.util.*
@@ -20,13 +21,23 @@ class TimeRangeView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
-    private val root: View = LayoutInflater.from(context).inflate(R.layout.view_time_range, this, true)
+    private val root: View =
+        LayoutInflater.from(context).inflate(R.layout.view_time_range, this, true)
 
     private val buttonStartHour by lazy { root.findViewById<Button>(R.id.time_range_text_start_hour) }
     private val buttonStartMin by lazy { root.findViewById<Button>(R.id.time_range_text_start_min) }
     private val buttonEndHour by lazy { root.findViewById<Button>(R.id.time_range_text_end_hour) }
     private val buttonEndMin by lazy { root.findViewById<Button>(R.id.time_range_text_end_min) }
-    private val buttons: List<Button> by lazy { listOf(buttonStartHour, buttonStartMin, buttonEndHour, buttonEndMin) }
+    private val buttons: List<Button> by lazy {
+        listOf(
+            buttonStartHour,
+            buttonStartMin,
+            buttonEndHour,
+            buttonEndMin
+        )
+    }
+    private val textStartColon by lazy { root.findViewById<TextView>(R.id.time_range_text_start_colon) }
+    private val textEndColon by lazy { root.findViewById<TextView>(R.id.time_range_text_end_colon) }
 
     /** 開始時刻 */
     val textViewStart by lazy { root.findViewById<TextView>(R.id.time_range_text_start) }
@@ -35,7 +46,7 @@ class TimeRangeView @JvmOverloads constructor(
     /** 注釈 */
     val textAnnotation by lazy { root.findViewById<TextView>(R.id.time_range_dialog_text_annotation) }
 
-    private val defaultButtonColor: ColorStateList? by lazy {
+    private val defaultTextColor: ColorStateList? by lazy {
         val typedValue = TypedValue()
         context.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
         ContextCompat.getColorStateList(context, typedValue.resourceId)
@@ -76,6 +87,14 @@ class TimeRangeView @JvmOverloads constructor(
             buttonStartMin.text = startMin.toDisplayTime()
             buttonEndHour.text = endHour.toDisplayTime()
             buttonEndMin.text = endMin.toDisplayTime()
+        }
+
+    var textColor: Int = 0
+        set(value) {
+            field = value
+            focus = focus
+            // 他のテキストの色も変更する
+            setOtherTextColor(value)
         }
 
     var startHour: String = ""
@@ -135,7 +154,13 @@ class TimeRangeView @JvmOverloads constructor(
             field = value
 
             // 全部のアクセントカラーを一旦外す
-            buttons.forEach { it.setTextColor(defaultButtonColor) }
+            buttons.forEach {
+                if (textColor != 0) {
+                    it.setTextColor(textColor)
+                } else {
+                    it.setTextColor(defaultTextColor)
+                }
+            }
 
             if (editable) {
                 when (value) {
@@ -143,7 +168,9 @@ class TimeRangeView @JvmOverloads constructor(
                     CurrentFocus.START_HOUR -> buttonStartHour.setTextColor(primaryColor)
                     CurrentFocus.START_MIN -> buttonStartMin.setTextColor(primaryColor)
                     CurrentFocus.END_HOUR -> buttonEndHour.setTextColor(primaryColor)
-                    CurrentFocus.END_MIN, CurrentFocus.COMPLETE -> buttonEndMin.setTextColor(primaryColor)
+                    CurrentFocus.END_MIN, CurrentFocus.COMPLETE -> buttonEndMin.setTextColor(
+                        primaryColor
+                    )
                 }
 
                 // フォーカスがあたるたび上書き入力可能にする
@@ -195,13 +222,24 @@ class TimeRangeView @JvmOverloads constructor(
     init {
         // XMLから初期値設定
         if (attrs != null) {
-            val args = context.theme.obtainStyledAttributes(attrs, R.styleable.TimeRangeView, defStyleAttr, 0)
+            val args = context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.TimeRangeView,
+                defStyleAttr,
+                0
+            )
             editable = args.getBoolean(R.styleable.TimeRangeView_editable, false)
             masking = args.getBoolean(R.styleable.TimeRangeView_masking, false)
+            textColor = args.getColor(R.styleable.TimeRangeView_textColor, 0)
+            // オリジナルのテキストカラーをセットしているなら渡す
+            if (textColor != 0) {
+                setOtherTextColor(textColor)
+            }
             // ラベルはあるならセットし、なければスルー
             args.getString(R.styleable.TimeRangeView_textStartTime)?.let { textStartTime = it }
             args.getString(R.styleable.TimeRangeView_textEndTime)?.let { textEndTime = it }
-            args.getString(R.styleable.TimeRangeView_textOverDayEndTime)?.let { textOverDayEndTime = it }
+            args.getString(R.styleable.TimeRangeView_textOverDayEndTime)
+                ?.let { textOverDayEndTime = it }
         }
 
         // Viewのセットアップ
@@ -353,6 +391,20 @@ class TimeRangeView @JvmOverloads constructor(
 
     private fun setEndText() {
         textViewEnd.text = if (getTimeRange().isOverDay) textOverDayEndTime else textEndTime
+    }
+
+    private fun setOtherTextColor(@ColorInt color: Int) {
+        if (color != 0) {
+            textViewStart.setTextColor(textColor)
+            textStartColon.setTextColor(textColor)
+            textViewEnd.setTextColor(textColor)
+            textEndColon.setTextColor(textColor)
+        } else {
+            textViewStart.setTextColor(defaultTextColor)
+            textStartColon.setTextColor(defaultTextColor)
+            textViewEnd.setTextColor(defaultTextColor)
+            textEndColon.setTextColor(defaultTextColor)
+        }
     }
 
     /** 何もしない。enumなどで使う */
