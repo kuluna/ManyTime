@@ -30,6 +30,11 @@ class NumberPadView @JvmOverloads constructor(
             }
         }
 
+    var positiveKeyEnabled: Boolean = true
+        set(value) {
+            field = value
+            okButton.isEnabled = value
+        }
 
     var onKeyClick: ((InputKey) -> Unit)? = null
 
@@ -50,7 +55,12 @@ class NumberPadView @JvmOverloads constructor(
 
         // XMLの初期値設定
         if (attrs != null) {
-            val args = context.theme.obtainStyledAttributes(attrs, R.styleable.NumberPadView, defStyleAttr, 0)
+            val args = context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.NumberPadView,
+                defStyleAttr,
+                0
+            )
             val keyModeInt = args.getInt(R.styleable.NumberPadView_positiveKeyMode, 0)
 
             positiveKeyMode = if (keyModeInt == 0) {
@@ -58,6 +68,8 @@ class NumberPadView @JvmOverloads constructor(
             } else {
                 PositiveKeyMode.NEXT
             }
+
+            positiveKeyEnabled = args.getBoolean(R.styleable.NumberPadView_positiveKeyEnabled, true)
         }
     }
 

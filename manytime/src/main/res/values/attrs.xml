@@ -12,5 +12,6 @@
             <enum name="ok" value="0" />
             <enum name="next" value="1" />
         </attr>
+        <attr name="positiveKeyEnabled" format="boolean" />
     </declare-styleable>
 </resources>

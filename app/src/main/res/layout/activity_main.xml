@@ -45,6 +45,11 @@
             android:layout_height="wrap_content"
             app:textOverDayEndTime="えんど(つぎのひ)" />
 
+        <jp.kuluna.manytime.NumberPadView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:positiveKeyEnabled="false" />
+
     </LinearLayout>
 
 </ScrollView>
