@@ -67,12 +67,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/time_range_dialog_button_cancel"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@android:string/cancel"
-                android:textColor="?android:attr/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/time_range_dialog_button_ok"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -81,11 +80,10 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/time_range_dialog_button_ok"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@android:string/ok"
-                android:textColor="?android:attr/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_text_annotation" />

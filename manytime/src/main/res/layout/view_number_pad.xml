@@ -142,7 +142,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/number_pad_button_ok"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
         android:layout_height="64dp"
         android:layout_row="3"
         android:layout_column="2"
@@ -159,7 +159,7 @@
         android:layout_column="2"
         android:layout_columnWeight="1"
         android:tag="OK"
-        android:tint="?android:attr/colorAccent"
+        android:tint="?attr/colorPrimary"
         app:srcCompat="@drawable/ic_arrow_forward"
         tools:ignore="ContentDescription" />
 
