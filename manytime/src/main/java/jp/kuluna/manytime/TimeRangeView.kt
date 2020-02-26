@@ -171,12 +171,40 @@ class TimeRangeView @JvmOverloads constructor(
             }
 
             if (editable) {
+                //TODO: 要リファクタ
                 when (value) {
                     CurrentFocus.NONE -> nop()
-                    CurrentFocus.START_HOUR -> buttonStartHour.setTextColor(primaryColor)
-                    CurrentFocus.START_MIN -> buttonStartMin.setTextColor(primaryColor)
-                    CurrentFocus.END_HOUR -> buttonEndHour.setTextColor(primaryColor)
-                    CurrentFocus.END_MIN, CurrentFocus.COMPLETE -> buttonEndMin.setTextColor(primaryColor)
+                    CurrentFocus.START_HOUR -> {
+                        if (textAccentColor != 0) {
+                            buttonStartHour.setTextColor(textAccentColor)
+                        } else {
+
+                            buttonStartHour.setTextColor(primaryColor)
+                        }
+                    }
+                    CurrentFocus.START_MIN -> {
+                        if (textAccentColor != 0) {
+                            buttonStartMin.setTextColor(textAccentColor)
+
+                        } else {
+                            buttonStartMin.setTextColor(primaryColor)
+                        }
+                    }
+                    CurrentFocus.END_HOUR -> {
+                        if (textAccentColor != 0) {
+                            buttonEndHour.setTextColor(textAccentColor)
+
+                        } else {
+                            buttonEndHour.setTextColor(primaryColor)
+                        }
+                    }
+                    CurrentFocus.END_MIN, CurrentFocus.COMPLETE -> {
+                        if (textAccentColor != 0) {
+                            buttonEndMin.setTextColor(textAccentColor)
+                        } else {
+                            buttonEndMin.setTextColor(primaryColor)
+                        }
+                    }
                 }
 
                 // フォーカスがあたるたび上書き入力可能にする
