@@ -1,108 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_time_range_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@android:color/darker_gray">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/dialog_time_range_root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:background="@android:color/darker_gray">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/time_range_dialog_number_pad_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/time_range_dialog_number_pad_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/time_range_dialog_text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Title"
+                tools:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/time_range_dialog_text_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:maxLines="1"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Title"
-                    tools:visibility="visible" />
+            <jp.kuluna.manytime.TimeRangeView
+                android:id="@+id/time_range_dialog_time_range_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:editable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_text_title" />
 
-                <jp.kuluna.manytime.TimeRangeView
-                    android:id="@+id/time_range_dialog_time_range_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:editable="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_text_title" />
+            <TextView
+                android:id="@+id/time_range_dialog_text_annotation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_time_range_view"
+                tools:text="Warning"
+                tools:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/time_range_dialog_text_annotation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_time_range_view"
-                    tools:text="Warning"
-                    tools:visibility="visible" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/time_range_dialog_button_cancel"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@android:string/cancel"
+                android:textColor="?android:attr/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/time_range_dialog_button_ok"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_text_annotation" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/time_range_dialog_button_cancel"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@android:string/cancel"
-                    android:textColor="?android:attr/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/time_range_dialog_button_ok"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_text_annotation" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/time_range_dialog_button_ok"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@android:string/ok"
+                android:textColor="?android:attr/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_text_annotation" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/time_range_dialog_button_ok"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@android:string/ok"
-                    android:textColor="?android:attr/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/time_range_dialog_text_annotation" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        </com.google.android.material.card.MaterialCardView>
+    <jp.kuluna.manytime.NumberPadView
+        android:id="@+id/time_range_dialog_number_pad_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:positiveKeyMode="next" />
 
-        <jp.kuluna.manytime.NumberPadView
-            android:id="@+id/time_range_dialog_number_pad_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:positiveKeyMode="next" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
