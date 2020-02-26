@@ -56,7 +56,7 @@ configure<PublishExtension> {
     userOrg = "kuluna"
     groupId = "jp.kuluna"
     artifactId = "manytime"
-    publishVersion = "0.0.3"
+    publishVersion = "0.0.4"
     desc = "Start time and end time show/input view."
     website = "https://github.com/kuluna/ManyTime"
 
