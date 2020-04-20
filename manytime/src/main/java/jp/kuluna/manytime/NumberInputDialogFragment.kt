@@ -50,10 +50,10 @@ abstract class NumberInputDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setUpView()
         setUpEvents()
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     private fun setUpView() {
@@ -139,7 +139,8 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     /**
-     * 入力値を任意のformatに変換
+     * 実際の入力値を受け取り、表示用の文字列として任意のformatに変換して返す
+     * @param inputValue : actual inputted value
      * @return formatted value
      */
     open fun format(inputValue: Int) = inputValue.toString()
