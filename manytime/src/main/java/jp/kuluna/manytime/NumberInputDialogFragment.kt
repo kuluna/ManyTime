@@ -12,7 +12,7 @@ import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 
-abstract class NumberInputDialogFragment(initialInputValue: Int) : DialogFragment() {
+abstract class NumberInputDialogFragment : DialogFragment() {
     protected lateinit var rootView: ConstraintLayout
     protected lateinit var textViewTitle: TextView
     protected lateinit var textViewInput: TextView
@@ -22,7 +22,7 @@ abstract class NumberInputDialogFragment(initialInputValue: Int) : DialogFragmen
 
     //Intで数字を扱っているので10桁まで有効としている
     private val maxNumberOfDigits = 10
-    private var currentInputValue = initialInputValue
+    var currentInputValue = 0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return Dialog(context!!).apply {

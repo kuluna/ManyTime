@@ -19,10 +19,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.openMoneyInputDialog.setOnClickListener {
-            SampleMoneyNumberInputDialogFragment(1000).show(supportFragmentManager, "sampleMoneyInputDialog")
+            SampleMoneyNumberInputDialogFragment().apply {
+                currentInputValue = 1000
+            }.show(supportFragmentManager, "sampleMoneyInputDialog")
         }
         binding.openMinutesInputDialog.setOnClickListener {
-            SampleMinutesNumberInputDialogFragment(2222).show(supportFragmentManager, "sampleMinuteInputDialog")
+            SampleMinutesNumberInputDialogFragment().apply {
+                currentInputValue = 2222
+            }.show(supportFragmentManager, "sampleMinuteInputDialog")
         }
     }
 }
