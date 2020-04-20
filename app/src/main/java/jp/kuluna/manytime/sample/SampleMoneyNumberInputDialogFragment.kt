@@ -9,11 +9,10 @@ import jp.kuluna.manytime.NumberInputDialogFragment
 import java.text.NumberFormat
 import java.util.*
 
-class SampleMoneyNumberInputDialogFragment : NumberInputDialogFragment() {
+class SampleMoneyNumberInputDialogFragment(inputValue: Int) : NumberInputDialogFragment(inputValue) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setTitle("Sample Money Input Dialog")
-        setInputValue(1)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import jp.kuluna.manytime.NumberInputDialogFragment
 
-class SampleMinutesNumberInputDialogFragment : NumberInputDialogFragment() {
+class SampleMinutesNumberInputDialogFragment(inputValue: Int) : NumberInputDialogFragment(inputValue) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setTitle("Sample Minutes Input Dialog")
-        setInputValue(1)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

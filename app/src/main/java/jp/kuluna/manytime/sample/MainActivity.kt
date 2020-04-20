@@ -2,19 +2,19 @@ package jp.kuluna.manytime.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.databinding.DataBindingUtil
+import jp.kuluna.manytime.sample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        open_money_input_dialog.setOnClickListener {
-            SampleMoneyNumberInputDialogFragment().show(supportFragmentManager, "sampleMoneyInputDialog")
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.openMoneyInputDialog.setOnClickListener {
+            SampleMoneyNumberInputDialogFragment(1000).show(supportFragmentManager, "sampleMoneyInputDialog")
         }
-        open_minutes_input_dialog.setOnClickListener {
-            SampleMinutesNumberInputDialogFragment().show(supportFragmentManager, "sampleMinuteInputDialog")
+        binding.openMinutesInputDialog.setOnClickListener {
+            SampleMinutesNumberInputDialogFragment(2222).show(supportFragmentManager, "sampleMinuteInputDialog")
         }
     }
 }

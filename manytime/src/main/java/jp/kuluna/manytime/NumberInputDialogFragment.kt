@@ -2,6 +2,7 @@ package jp.kuluna.manytime
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -11,7 +12,7 @@ import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 
-abstract class NumberInputDialogFragment : DialogFragment() {
+abstract class NumberInputDialogFragment(initialInputValue: Int) : DialogFragment() {
     protected lateinit var rootView: ConstraintLayout
     protected lateinit var textViewTitle: TextView
     protected lateinit var textViewInput: TextView
@@ -21,7 +22,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
 
     //Intで数字を扱っているので9桁まで有効としている
     private val maxNumberOfDigits = 9
-    private var currentInputValue: Int = 0
+    private var currentInputValue = initialInputValue
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return Dialog(context!!).apply {
@@ -46,13 +47,15 @@ abstract class NumberInputDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setUpView()
         setUpEvents()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     private fun setUpView() {
+        displayFormattedValue(currentInputValue)
+
         numberPadView.onKeyClick = {
             when {
                 // OKモードならそのまま完了できる
@@ -69,8 +72,9 @@ abstract class NumberInputDialogFragment : DialogFragment() {
                 }
                 else -> {
                     if (doDefaultValidation(currentInputValue)) {
-                        currentInputValue = (currentInputValue.toString() + it.value).toInt()
-                        if (validate(currentInputValue)) {
+                        val inputValue = (currentInputValue.toString() + it.value).toInt()
+                        if (validate(inputValue)) {
+                            currentInputValue = inputValue
                             displayFormattedValue(currentInputValue)
                         }
                     }
@@ -117,11 +121,6 @@ abstract class NumberInputDialogFragment : DialogFragment() {
         }
     }
 
-    protected fun setInputValue(value: Int) {
-        currentInputValue = value
-        displayFormattedValue(value)
-    }
-
     private fun displayFormattedValue(value: Int) {
         textViewInput.text = format(value)
     }
@@ -131,7 +130,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     /**
-     * 入力値を好きなformatに変換できるようにする
+     * 入力値を任意のformatに変換
      * @return formatted value
      */
     open fun format(inputValue: Int) = inputValue.toString()
