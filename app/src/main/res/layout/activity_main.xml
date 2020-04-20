@@ -11,6 +11,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/open_money_input_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="Open Money Input Dialog" />
+
+        <Button
+            android:id="@+id/open_minutes_input_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="Open Minutes Input Dialog" />
+
+
         <jp.kuluna.manytime.TimeRangeView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
