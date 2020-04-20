@@ -5,11 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import jp.kuluna.manytime.NumberInputDialogFragment
 import java.text.NumberFormat
 import java.util.*
 
 class SampleMoneyNumberInputDialogFragment : NumberInputDialogFragment() {
+
+    companion object {
+        fun show(
+            fm: FragmentManager,
+            initialValue: Int
+        ) {
+            val f = SampleMinutesNumberInputDialogFragment()
+            f.arguments = Bundle().apply {
+                putInt(EXTRA_INITIAL_VALUE, initialValue)
+            }
+            f.show(fm, "sampleMoneyInputDialog")
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setTitle("Sample Money Input Dialog")

@@ -22,7 +22,11 @@ abstract class NumberInputDialogFragment : DialogFragment() {
 
     //Intで数字を扱っているので10桁まで有効としている
     private val maxNumberOfDigits = 10
-    var currentInputValue = 0
+    private var currentInputValue = 0
+
+    companion object {
+        val EXTRA_INITIAL_VALUE = "EXTRA_INITIAL_VALUE"
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return Dialog(context!!).apply {
@@ -54,6 +58,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     private fun setUpView() {
+        currentInputValue = requireArguments().getInt(EXTRA_INITIAL_VALUE, 0)
         displayFormattedValue(currentInputValue)
 
         numberPadView.onKeyClick = {
