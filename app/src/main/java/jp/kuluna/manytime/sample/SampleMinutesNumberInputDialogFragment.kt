@@ -15,7 +15,6 @@ class SampleMinutesNumberInputDialogFragment : NumberInputDialogFragment() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    //// Open /////
     override fun validate(inputValue: Int): Boolean {
         return true
     }
