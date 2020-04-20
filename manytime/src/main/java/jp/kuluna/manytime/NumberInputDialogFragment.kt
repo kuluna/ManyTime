@@ -20,8 +20,8 @@ abstract class NumberInputDialogFragment(initialInputValue: Int) : DialogFragmen
     protected lateinit var buttonCancel: Button
     protected lateinit var buttonOk: Button
 
-    //Intで数字を扱っているので9桁まで有効としている
-    private val maxNumberOfDigits = 9
+    //Intで数字を扱っているので10桁まで有効としている
+    private val maxNumberOfDigits = 10
     private var currentInputValue = initialInputValue
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -72,8 +72,8 @@ abstract class NumberInputDialogFragment(initialInputValue: Int) : DialogFragmen
                 }
                 else -> {
                     if (doDefaultValidation(currentInputValue)) {
-                        val inputValue = (currentInputValue.toString() + it.value).toInt()
-                        if (validate(inputValue)) {
+                        val inputValue = (currentInputValue.toString() + it.value).toIntOrNull()
+                        if (inputValue != null && validate(inputValue)) {
                             currentInputValue = inputValue
                             displayFormattedValue(currentInputValue)
                         }
