@@ -25,7 +25,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     private var currentInputValue = 0
 
     companion object {
-        val EXTRA_INITIAL_VALUE = "EXTRA_INITIAL_VALUE"
+        const val EXTRA_INITIAL_VALUE = "EXTRA_INITIAL_VALUE"
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
