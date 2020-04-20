@@ -54,7 +54,7 @@ class TimeRangeView @JvmOverloads constructor(
 
     private val primaryColor: ColorStateList? by lazy {
         val typedValue = TypedValue()
-        context.theme.resolveAttribute(android.R.attr.colorAccent, typedValue, true)
+        context.theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
         ContextCompat.getColorStateList(context, typedValue.resourceId)
     }
 
@@ -94,7 +94,15 @@ class TimeRangeView @JvmOverloads constructor(
             field = value
             focus = focus
             // 他のテキストの色も変更する
-            setOtherTextColor(value)
+            setOtherTextColor(textColor)
+        }
+
+    var textAccentColor: Int = 0
+        set(value) {
+            field = value
+            focus = focus
+            // 他のテキストの色も変更する
+            setTimeTextAccentColor(textColor)
         }
 
     var startHour: String = ""
@@ -163,14 +171,40 @@ class TimeRangeView @JvmOverloads constructor(
             }
 
             if (editable) {
+                //TODO: 要リファクタ
                 when (value) {
                     CurrentFocus.NONE -> nop()
-                    CurrentFocus.START_HOUR -> buttonStartHour.setTextColor(primaryColor)
-                    CurrentFocus.START_MIN -> buttonStartMin.setTextColor(primaryColor)
-                    CurrentFocus.END_HOUR -> buttonEndHour.setTextColor(primaryColor)
-                    CurrentFocus.END_MIN, CurrentFocus.COMPLETE -> buttonEndMin.setTextColor(
-                        primaryColor
-                    )
+                    CurrentFocus.START_HOUR -> {
+                        if (textAccentColor != 0) {
+                            buttonStartHour.setTextColor(textAccentColor)
+                        } else {
+
+                            buttonStartHour.setTextColor(primaryColor)
+                        }
+                    }
+                    CurrentFocus.START_MIN -> {
+                        if (textAccentColor != 0) {
+                            buttonStartMin.setTextColor(textAccentColor)
+
+                        } else {
+                            buttonStartMin.setTextColor(primaryColor)
+                        }
+                    }
+                    CurrentFocus.END_HOUR -> {
+                        if (textAccentColor != 0) {
+                            buttonEndHour.setTextColor(textAccentColor)
+
+                        } else {
+                            buttonEndHour.setTextColor(primaryColor)
+                        }
+                    }
+                    CurrentFocus.END_MIN, CurrentFocus.COMPLETE -> {
+                        if (textAccentColor != 0) {
+                            buttonEndMin.setTextColor(textAccentColor)
+                        } else {
+                            buttonEndMin.setTextColor(primaryColor)
+                        }
+                    }
                 }
 
                 // フォーカスがあたるたび上書き入力可能にする
@@ -231,6 +265,8 @@ class TimeRangeView @JvmOverloads constructor(
             editable = args.getBoolean(R.styleable.TimeRangeView_editable, false)
             masking = args.getBoolean(R.styleable.TimeRangeView_masking, false)
             textColor = args.getColor(R.styleable.TimeRangeView_textColor, 0)
+            textAccentColor = args.getColor(R.styleable.TimeRangeView_textAccentColor, 0)
+
             // オリジナルのテキストカラーをセットしているなら渡す
             if (textColor != 0) {
                 setOtherTextColor(textColor)
@@ -391,6 +427,10 @@ class TimeRangeView @JvmOverloads constructor(
 
     private fun setEndText() {
         textViewEnd.text = if (getTimeRange().isOverDay) textOverDayEndTime else textEndTime
+    }
+
+    private fun setTimeTextAccentColor(@ColorInt accentColor: Int) {
+
     }
 
     private fun setOtherTextColor(@ColorInt color: Int) {
