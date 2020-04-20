@@ -21,7 +21,6 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     protected lateinit var buttonOk: Button
 
     //Intで数字を扱っているので10桁まで有効としている
-    private val maxNumberOfDigits = 10
     private var currentInputValue = 0
 
     companion object {
@@ -129,6 +128,11 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     private fun displayFormattedValue(value: Int) {
         textViewInput.text = format(value)
     }
+
+    /**
+     * 最大桁数
+     */
+    open val maxNumberOfDigits = 10
 
     open fun validate(inputValue: Int): Boolean {
         return true

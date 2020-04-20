@@ -28,6 +28,10 @@ class SampleMinutesNumberInputDialogFragment : NumberInputDialogFragment() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+
+    override val maxNumberOfDigits: Int
+        get() = 4
+
     override fun validate(inputValue: Int): Boolean {
         return true
     }

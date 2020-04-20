@@ -17,7 +17,7 @@ class SampleMoneyNumberInputDialogFragment : NumberInputDialogFragment() {
             fm: FragmentManager,
             initialValue: Int
         ) {
-            val f = SampleMinutesNumberInputDialogFragment()
+            val f = SampleMoneyNumberInputDialogFragment()
             f.arguments = Bundle().apply {
                 putInt(EXTRA_INITIAL_VALUE, initialValue)
             }
