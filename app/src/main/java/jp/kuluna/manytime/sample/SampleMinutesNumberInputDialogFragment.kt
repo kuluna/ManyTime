@@ -1,5 +1,6 @@
 package jp.kuluna.manytime.sample
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,15 +20,15 @@ class SampleMinutesNumberInputDialogFragment : NumberInputDialogFragment() {
             f.arguments = Bundle().apply {
                 putInt(EXTRA_INITIAL_VALUE, initialValue)
             }
-            f.show(fm, "sampleMoneyInputDialog")
+            f.show(fm, "sampleMinutesInputDialog")
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
         setTitle("Sample Minutes Input Dialog")
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return dialog
     }
-
 
     override val maxNumberOfDigits: Int
         get() = 4

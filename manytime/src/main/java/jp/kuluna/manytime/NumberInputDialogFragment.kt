@@ -28,7 +28,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return Dialog(context!!).apply {
+        val dialog = Dialog(context!!).apply {
             // もともとあったダイアログのタイトルを消す
             requestWindowFeature(Window.FEATURE_NO_TITLE)
 
@@ -48,12 +48,10 @@ abstract class NumberInputDialogFragment : DialogFragment() {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         setUpView()
         setUpEvents()
+
+        return dialog
     }
 
     private fun setUpView() {
