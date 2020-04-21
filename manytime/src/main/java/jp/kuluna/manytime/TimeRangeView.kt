@@ -101,8 +101,6 @@ class TimeRangeView @JvmOverloads constructor(
         set(value) {
             field = value
             focus = focus
-            // 他のテキストの色も変更する
-            setTimeTextAccentColor(textColor)
         }
 
     var startHour: String = ""
@@ -427,10 +425,6 @@ class TimeRangeView @JvmOverloads constructor(
 
     private fun setEndText() {
         textViewEnd.text = if (getTimeRange().isOverDay) textOverDayEndTime else textEndTime
-    }
-
-    private fun setTimeTextAccentColor(@ColorInt accentColor: Int) {
-
     }
 
     private fun setOtherTextColor(@ColorInt color: Int) {
