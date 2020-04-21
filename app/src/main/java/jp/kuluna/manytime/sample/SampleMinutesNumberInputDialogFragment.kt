@@ -19,15 +19,10 @@ class SampleMinutesNumberInputDialogFragment : NumberInputDialogFragment() {
             val f = SampleMinutesNumberInputDialogFragment()
             f.arguments = Bundle().apply {
                 putInt(EXTRA_INITIAL_VALUE, initialValue)
+                putString(EXTRA_TITLE, "Sample Minutes Input Dialog")
             }
             f.show(fm, "sampleMinutesInputDialog")
         }
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        setTitle("Sample Minutes Input Dialog")
-        return dialog
     }
 
     override val maxNumberOfDigits: Int

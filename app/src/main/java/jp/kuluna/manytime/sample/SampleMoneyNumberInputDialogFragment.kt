@@ -21,15 +21,10 @@ class SampleMoneyNumberInputDialogFragment : NumberInputDialogFragment() {
             val f = SampleMoneyNumberInputDialogFragment()
             f.arguments = Bundle().apply {
                 putInt(EXTRA_INITIAL_VALUE, initialValue)
+                putString(EXTRA_TITLE, "Sample Money Input Dialog")
             }
             f.show(fm, "sampleMoneyInputDialog")
         }
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        setTitle("Sample Money Input Dialog")
-        return dialog
     }
 
     override fun validate(inputValue: Int): Boolean {

@@ -25,6 +25,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
 
     companion object {
         const val EXTRA_INITIAL_VALUE = "EXTRA_INITIAL_VALUE"
+        const val EXTRA_TITLE = "EXTRA_TITLE"
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -55,6 +56,10 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     private fun setUpView() {
+        requireArguments().getString(EXTRA_TITLE)?.run {
+            setTitle(this)
+        }
+        
         currentInputValue = requireArguments().getInt(EXTRA_INITIAL_VALUE, 0)
         displayFormattedValue(currentInputValue)
 
