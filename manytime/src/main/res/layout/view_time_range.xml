@@ -9,7 +9,7 @@
         android:id="@+id/time_range_image_start_to_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="?android:attr/colorAccent"
+        android:tint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
