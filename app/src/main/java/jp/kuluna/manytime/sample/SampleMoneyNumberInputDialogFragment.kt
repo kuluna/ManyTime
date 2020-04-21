@@ -38,7 +38,7 @@ class SampleMoneyNumberInputDialogFragment : NumberInputDialogFragment() {
 
     override fun format(inputValue: Int) = inputValue.yen
 
-    override fun onOkButtonClick(inputValue: String): Boolean {
+    override fun onOkButtonClick(inputValue: Int): Boolean {
         Toast.makeText(requireContext(), "inputValue is $inputValue", Toast.LENGTH_LONG).show()
         return true
     }

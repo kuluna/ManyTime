@@ -39,7 +39,7 @@ class SampleMinutesNumberInputDialogFragment : NumberInputDialogFragment() {
 
     override fun format(inputValue: Int) = "${inputValue}分"
 
-    override fun onOkButtonClick(inputValue: String): Boolean {
+    override fun onOkButtonClick(inputValue: Int): Boolean {
         Toast.makeText(requireContext(), "inputValue is $inputValue", Toast.LENGTH_LONG).show()
         return true
     }

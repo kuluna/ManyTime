@@ -105,8 +105,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     private fun doOkButtonAction() {
-        val result = textViewInput.text.toString()
-        if (onOkButtonClick(result)) dismiss()
+        if (onOkButtonClick(currentInputValue)) dismiss()
     }
 
     protected fun setTitle(@StringRes resId: Int) {
@@ -147,5 +146,5 @@ abstract class NumberInputDialogFragment : DialogFragment() {
      * OKボタンをクリックした時に呼ばれます。
      * @return trueならダイアログを閉じる
      */
-    abstract fun onOkButtonClick(inputValue: String): Boolean
+    abstract fun onOkButtonClick(inputValue: Int): Boolean
 }
