@@ -25,6 +25,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
 
     companion object {
         const val EXTRA_INITIAL_VALUE = "EXTRA_INITIAL_VALUE"
+        const val EXTRA_TITLE = "EXTRA_TITLE"
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -55,7 +56,10 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     private fun setUpView() {
-        currentInputValue = requireArguments().getInt(EXTRA_INITIAL_VALUE, 0)
+        arguments?.getString(EXTRA_TITLE)?.run {
+            setTitle(this)
+        }
+        currentInputValue = arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
         displayFormattedValue(currentInputValue)
 
         numberPadView.onKeyClick = {
@@ -105,8 +109,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     private fun doOkButtonAction() {
-        val result = textViewInput.text.toString()
-        if (onOkButtonClick(result)) dismiss()
+        if (onOkButtonClick(currentInputValue)) dismiss()
     }
 
     protected fun setTitle(@StringRes resId: Int) {
@@ -147,5 +150,5 @@ abstract class NumberInputDialogFragment : DialogFragment() {
      * OKボタンをクリックした時に呼ばれます。
      * @return trueならダイアログを閉じる
      */
-    abstract fun onOkButtonClick(inputValue: String): Boolean
+    abstract fun onOkButtonClick(inputValue: Int): Boolean
 }
