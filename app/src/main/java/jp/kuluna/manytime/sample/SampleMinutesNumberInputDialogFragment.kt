@@ -17,10 +17,6 @@ class SampleMinutesNumberInputDialogFragment : NumberInputDialogFragment() {
             initialValue: Int
         ) {
             val f = SampleMinutesNumberInputDialogFragment()
-            f.arguments = Bundle().apply {
-                putInt(EXTRA_INITIAL_VALUE, initialValue)
-                putString(EXTRA_TITLE, "Sample Minutes Input Dialog")
-            }
             f.show(fm, "sampleMinutesInputDialog")
         }
     }

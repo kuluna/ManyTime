@@ -56,11 +56,10 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     }
 
     private fun setUpView() {
-        requireArguments().getString(EXTRA_TITLE)?.run {
+        arguments?.getString(EXTRA_TITLE)?.run {
             setTitle(this)
         }
-        
-        currentInputValue = requireArguments().getInt(EXTRA_INITIAL_VALUE, 0)
+        currentInputValue = arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
         displayFormattedValue(currentInputValue)
 
         numberPadView.onKeyClick = {
