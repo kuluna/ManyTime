@@ -27,6 +27,9 @@ class SampleMoneyNumberInputDialogFragment : NumberInputDialogFragment() {
         return inputValue > 0
     }
 
+    override val errorMessage: String
+        get() = "sample error message"
+
     override fun format(inputValue: Int) = inputValue.yen
 
     override fun onOkButtonClick(inputValue: Int): Boolean {

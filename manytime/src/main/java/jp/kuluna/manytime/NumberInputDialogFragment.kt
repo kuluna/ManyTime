@@ -15,6 +15,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     protected lateinit var rootView: ConstraintLayout
     protected lateinit var textViewTitle: TextView
     protected lateinit var textViewInput: TextView
+    protected lateinit var textErrorMessage: TextView
     protected lateinit var numberPadView: NumberPadView
     protected lateinit var buttonCancel: Button
     protected lateinit var buttonOk: Button
@@ -39,6 +40,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
                 rootView = it.findViewById(R.id.dialog_time_range_root)
                 textViewTitle = it.findViewById(R.id.text_title)
                 textViewInput = it.findViewById(R.id.text_input)
+                textErrorMessage = it.findViewById(R.id.text_error_message)
                 numberPadView = it.findViewById(R.id.number_pad_view)
                 buttonCancel = it.findViewById(R.id.button_cancel)
                 buttonOk = it.findViewById(R.id.button_ok)
@@ -66,7 +68,9 @@ abstract class NumberInputDialogFragment : DialogFragment() {
             when {
                 // OKモードならそのまま完了できる
                 numberPadView.positiveKeyMode == NumberPadView.PositiveKeyMode.OK && it == InputKey.OK -> {
-                    if (validate(currentInputValue)) doOkButtonAction()
+                    if (validateAndShowErrorIfNeeded(currentInputValue)) {
+                        doOkButtonAction()
+                    }
                 }
                 it == InputKey.BACK -> {
                     currentInputValue = if (currentInputValue.toString().length == 1) {
@@ -74,18 +78,33 @@ abstract class NumberInputDialogFragment : DialogFragment() {
                     } else {
                         currentInputValue.toString().dropLast(1).toInt()
                     }
+                    validateAndShowErrorIfNeeded(currentInputValue)
                     displayFormattedValue(currentInputValue)
                 }
                 else -> {
                     if (doDefaultValidation(currentInputValue)) {
                         val inputValue = (currentInputValue.toString() + it.value).toIntOrNull()
-                        if (inputValue != null && validate(inputValue)) {
+                        if (inputValue != null && validateAndShowErrorIfNeeded(inputValue)) {
                             currentInputValue = inputValue
                             displayFormattedValue(currentInputValue)
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun validateAndShowErrorIfNeeded(inputValue: Int): Boolean {
+        return if (validate(inputValue)) {
+            textErrorMessage.visibility = View.GONE
+            textErrorMessage.text = ""
+            true
+        } else {
+            if (errorMessage.isNotEmpty()) {
+                textErrorMessage.visibility = View.VISIBLE
+                textErrorMessage.text = errorMessage
+            }
+            false
         }
     }
 
@@ -134,6 +153,11 @@ abstract class NumberInputDialogFragment : DialogFragment() {
      * 最大桁数
      */
     open val maxNumberOfDigits = 10
+
+    /**
+     * validateでエラーが見つかった場合に表示するエラーメッセージ
+     */
+    open val errorMessage: String = ""
 
     open fun validate(inputValue: Int): Boolean {
         return true
