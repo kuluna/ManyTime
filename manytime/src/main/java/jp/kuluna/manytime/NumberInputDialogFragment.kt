@@ -2,7 +2,6 @@ package jp.kuluna.manytime
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -62,11 +61,12 @@ abstract class NumberInputDialogFragment : DialogFragment() {
         currentInputValue = arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
         displayFormattedValue(currentInputValue)
 
+        numberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.OK
         numberPadView.onKeyClick = {
             when {
                 // OKモードならそのまま完了できる
                 numberPadView.positiveKeyMode == NumberPadView.PositiveKeyMode.OK && it == InputKey.OK -> {
-                    doOkButtonAction()
+                    if (validate(currentInputValue)) doOkButtonAction()
                 }
                 it == InputKey.BACK -> {
                     currentInputValue = if (currentInputValue.toString().length == 1) {
@@ -100,7 +100,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
         }
 
         buttonOk.setOnClickListener {
-            doOkButtonAction()
+            if (validate(currentInputValue)) doOkButtonAction()
         }
     }
 
