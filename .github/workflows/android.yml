@@ -2,7 +2,8 @@ name: Deploy bintray
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - '*'
 
 jobs:
   build:
