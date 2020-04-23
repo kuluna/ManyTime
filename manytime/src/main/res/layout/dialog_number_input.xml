@@ -51,8 +51,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:minEms="7"
                 android:gravity="end"
+                android:minEms="7"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,11 +60,12 @@
                 tools:text="1,000,000,000" />
 
             <TextView
-                android:id="@+id/text_annotation"
+                android:id="@+id/text_error_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:textColor="@android:color/holo_red_light"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +84,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/button_ok"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_annotation" />
+                app:layout_constraintTop_toBottomOf="@+id/text_error_message" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_ok"
@@ -93,7 +94,7 @@
                 android:text="@android:string/ok"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_annotation" />
+                app:layout_constraintTop_toBottomOf="@+id/text_error_message" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
