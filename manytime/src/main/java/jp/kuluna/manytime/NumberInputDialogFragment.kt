@@ -50,18 +50,27 @@ abstract class NumberInputDialogFragment : DialogFragment() {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         }
-        setUpView()
+        setUpView(savedInstanceState)
         setUpEvents()
 
         return dialog
     }
 
-    private fun setUpView() {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(EXTRA_INITIAL_VALUE, currentInputValue)
+    }
+
+    private fun setUpView(savedInstanceState: Bundle?) {
         arguments?.getString(EXTRA_TITLE)?.run {
             setTitle(this)
         }
-        currentInputValue = arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
-        displayFormattedValue(currentInputValue)
+
+        currentInputValue =
+            savedInstanceState?.getInt(EXTRA_INITIAL_VALUE, 0)
+                ?: arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
+
+        onInputtedValueChanged()
 
         numberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.OK
         numberPadView.onKeyClick = {
@@ -79,22 +88,25 @@ abstract class NumberInputDialogFragment : DialogFragment() {
                     } else {
                         currentInputValue.toString().dropLast(1).toInt()
                     }
-                    validateAndShowErrorIfNeeded(currentInputValue)
-                    displayFormattedValue(currentInputValue)
+                    onInputtedValueChanged()
                 }
                 // 数字ボタン選択時
                 else -> {
                     if (doDefaultValidation(currentInputValue)) {
                         val inputValue = (currentInputValue.toString() + it.value).toIntOrNull()
                         if (inputValue != null) {
-                            validateAndShowErrorIfNeeded(inputValue)
                             currentInputValue = inputValue
-                            displayFormattedValue(currentInputValue)
+                            onInputtedValueChanged()
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun onInputtedValueChanged() {
+        validateAndShowErrorIfNeeded(currentInputValue)
+        displayFormattedValue(currentInputValue)
     }
 
     /**
