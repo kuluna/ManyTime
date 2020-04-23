@@ -50,17 +50,26 @@ abstract class NumberInputDialogFragment : DialogFragment() {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         }
-        setUpView()
+        setUpView(savedInstanceState)
         setUpEvents()
 
         return dialog
     }
 
-    private fun setUpView() {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(EXTRA_INITIAL_VALUE, currentInputValue)
+    }
+
+    private fun setUpView(savedInstanceState: Bundle?) {
         arguments?.getString(EXTRA_TITLE)?.run {
             setTitle(this)
         }
-        currentInputValue = arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
+
+        currentInputValue =
+            savedInstanceState?.getInt(EXTRA_INITIAL_VALUE, 0)
+                ?: arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
+
         onInputtedValueChanged()
 
         numberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.OK
@@ -98,7 +107,6 @@ abstract class NumberInputDialogFragment : DialogFragment() {
     private fun onInputtedValueChanged() {
         validateAndShowErrorIfNeeded(currentInputValue)
         displayFormattedValue(currentInputValue)
-        arguments?.putInt(EXTRA_INITIAL_VALUE, currentInputValue)
     }
 
     /**
