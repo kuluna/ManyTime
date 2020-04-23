@@ -61,7 +61,7 @@ abstract class NumberInputDialogFragment : DialogFragment() {
             setTitle(this)
         }
         currentInputValue = arguments?.getInt(EXTRA_INITIAL_VALUE, 0) ?: 0
-        displayFormattedValue(currentInputValue)
+        onInputtedValueChanged()
 
         numberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.OK
         numberPadView.onKeyClick = {
@@ -79,22 +79,26 @@ abstract class NumberInputDialogFragment : DialogFragment() {
                     } else {
                         currentInputValue.toString().dropLast(1).toInt()
                     }
-                    validateAndShowErrorIfNeeded(currentInputValue)
-                    displayFormattedValue(currentInputValue)
+                    onInputtedValueChanged()
                 }
                 // 数字ボタン選択時
                 else -> {
                     if (doDefaultValidation(currentInputValue)) {
                         val inputValue = (currentInputValue.toString() + it.value).toIntOrNull()
                         if (inputValue != null) {
-                            validateAndShowErrorIfNeeded(inputValue)
                             currentInputValue = inputValue
-                            displayFormattedValue(currentInputValue)
+                            onInputtedValueChanged()
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun onInputtedValueChanged() {
+        validateAndShowErrorIfNeeded(currentInputValue)
+        displayFormattedValue(currentInputValue)
+        arguments?.putInt(EXTRA_INITIAL_VALUE, currentInputValue)
     }
 
     /**
