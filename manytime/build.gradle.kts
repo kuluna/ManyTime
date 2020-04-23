@@ -21,6 +21,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -44,7 +48,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.novoda:bintray-release:0.9.1")
+        classpath("com.novoda:bintray-release:0.9.2")
     }
 }
 
