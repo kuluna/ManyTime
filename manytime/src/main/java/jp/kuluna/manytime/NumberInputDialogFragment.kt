@@ -66,12 +66,13 @@ abstract class NumberInputDialogFragment : DialogFragment() {
         numberPadView.positiveKeyMode = NumberPadView.PositiveKeyMode.OK
         numberPadView.onKeyClick = {
             when {
-                // OKモードならそのまま完了できる
+                // OK選択時
                 numberPadView.positiveKeyMode == NumberPadView.PositiveKeyMode.OK && it == InputKey.OK -> {
                     if (validateAndShowErrorIfNeeded(currentInputValue)) {
                         doOkButtonAction()
                     }
                 }
+                // Back(削除)ボタン選択時
                 it == InputKey.BACK -> {
                     currentInputValue = if (currentInputValue.toString().length == 1) {
                         0
@@ -81,10 +82,12 @@ abstract class NumberInputDialogFragment : DialogFragment() {
                     validateAndShowErrorIfNeeded(currentInputValue)
                     displayFormattedValue(currentInputValue)
                 }
+                // 数字ボタン選択時
                 else -> {
                     if (doDefaultValidation(currentInputValue)) {
                         val inputValue = (currentInputValue.toString() + it.value).toIntOrNull()
-                        if (inputValue != null && validateAndShowErrorIfNeeded(inputValue)) {
+                        if (inputValue != null) {
+                            validateAndShowErrorIfNeeded(inputValue)
                             currentInputValue = inputValue
                             displayFormattedValue(currentInputValue)
                         }
@@ -94,16 +97,28 @@ abstract class NumberInputDialogFragment : DialogFragment() {
         }
     }
 
+    /**
+     * validationを行い、不正値の場合はエラーメッセージを表示する。
+     * エラーメッセージが設定されていない場合は表示しない。
+     * またエラー時はOKボタンをdisabledにする。
+     *
+     * @param inputValue 実際に入力された値
+     * @return 検証結果
+     */
     private fun validateAndShowErrorIfNeeded(inputValue: Int): Boolean {
         return if (validate(inputValue)) {
             textErrorMessage.visibility = View.GONE
             textErrorMessage.text = ""
+            numberPadView.positiveKeyEnabled = true
+            buttonOk.isEnabled = true
             true
         } else {
             if (errorMessage.isNotEmpty()) {
                 textErrorMessage.visibility = View.VISIBLE
                 textErrorMessage.text = errorMessage
             }
+            numberPadView.positiveKeyEnabled = false
+            buttonOk.isEnabled = false
             false
         }
     }
